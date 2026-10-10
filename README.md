@@ -31,3 +31,4 @@ Bygget finns också under https://expo.dev → ditt projekt → Builds.
 - `appHtml.js` – själva AlltFix-gränssnittet
 - `app.json` – namn, ikon, paketnamn `se.alltfix.demo`
 - `eas.json` – byggprofil `apk`
+# AllFix
