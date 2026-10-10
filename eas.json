@@ -5,6 +5,13 @@
       "distribution": "internal",
       "android": { "buildType": "apk" }
     },
+    "ios-sim": {
+      "ios": { "simulator": true }
+    },
+    "ios-test": {
+      "distribution": "internal",
+      "ios": { "simulator": false }
+    },
     "production": {
       "android": { "buildType": "app-bundle" }
     }
