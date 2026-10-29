@@ -41,6 +41,9 @@ jobs:
       - name: Installera paket
         run: npm ci
 
+      - name: Bygg appens gränssnitt (web/alltfix.html)
+        run: npm run build:web
+
       - name: Skapa Android-projektet (expo prebuild)
         run: npx expo prebuild --platform android --no-install --clean
 

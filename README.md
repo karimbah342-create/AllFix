@@ -39,3 +39,8 @@ Bygget finns också under https://expo.dev → ditt projekt → Builds.
 - `app.json` – namn, ikon, paketnamn `se.alltfix.demo`
 - `eas.json` – byggprofil `apk`
 # AllFix
+
+## Redigera appen
+Hela gränssnittet finns i `web/alltfix.html` (svenska och engelska, karta, bokning, inställningar).
+Efter ändringar: kör `npm run build:web` så skapas `appHtml.js`. GitHub gör det också automatiskt vid varje bygge.
+Kartan använder OpenStreetMap-kartor via Leaflet. Varje utförare har en knapp som öppnar platsen i Google Maps.
