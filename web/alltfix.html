@@ -180,6 +180,50 @@ a{color:var(--green)}
 .pay.on{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
 .pay .txt{flex:1;min-width:0}
 .pay small{display:block;color:var(--muted);font-size:12px}
+.paylogos{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.paylogos small{flex:1 1 160px;color:var(--muted);font-size:12.5px;line-height:1.4}
+#sheet{position:absolute;inset:0;z-index:2500;pointer-events:none}
+#sheet > *{pointer-events:auto}
+.sheetwrap{position:absolute;inset:0;background:rgba(10,23,20,.45);display:flex;align-items:flex-end;animation:fade .2s ease}
+.sheet{width:100%;max-height:92%;overflow-y:auto;background:var(--card);border-radius:22px 22px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;animation:up .25s ease}
+.sheet.center{align-items:center;text-align:center;padding:36px 16px 44px;gap:14px}
+.sheet.center h3{margin:0;font-family:var(--display);font-size:17px}
+.sheet .ring{width:72px;height:72px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;color:var(--green)}
+.sheet .ring .ico{width:36px;height:36px;stroke-width:2.4}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid var(--green-soft);border-top-color:var(--green);animation:rot .8s linear infinite}
+.shead{display:flex;align-items:center;gap:8px}
+.shead h3{margin:0;flex:1;font-family:var(--display);font-size:18px}
+.shead .x{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted);background:var(--bg)}
+.testpill{font-size:10.5px;font-weight:800;letter-spacing:.06em;color:#9a5b00;background:#ffe9c2;border-radius:6px;padding:3px 6px}
+.ptabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.ptab{display:flex;align-items:center;gap:8px;padding:12px;border-radius:12px;border:1.5px solid var(--line);font-weight:700;font-size:14px;min-width:0}
+.ptab span:not(.visa):not(.klarna){flex:1;text-align:left}
+.ptab.on{border-color:var(--green);box-shadow:0 0 0 1px var(--green);background:#f6fbf9}
+.visa.sm,.klarna.sm{width:40px;height:24px;font-size:10px}
+.kinfo{display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:#fff4f7;border:1px solid #ffd3df;border-radius:14px;padding:14px}
+.kinfo p{margin:0;font-size:14px;line-height:1.5}
+.kinfo small{color:var(--muted);font-size:12.5px}
+.btn.kgo{background:#0b051d}
+.btn.kgo:hover{background:#2a2440}
+.ssecure{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--muted);text-align:center}
+.ssecure .ico{width:14px;height:14px}
+.kpage{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;animation:fade .2s ease;overflow-y:auto}
+.khead{background:#ffb3c7;padding:18px 18px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.kword{font-weight:800;font-size:24px;color:#0b051d;letter-spacing:-.02em}
+.kdemo{font-size:11px;font-weight:700;color:#0b051d;background:rgba(255,255,255,.6);border-radius:6px;padding:3px 7px}
+.kbody{padding:22px 18px;display:flex;flex-direction:column;gap:10px;color:#0b051d}
+.kamount{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
+.kmerchant{color:#5c5866;font-size:13.5px;margin-top:-6px}
+.kbody h3{margin:14px 0 2px;font-size:16px}
+.kopt{display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border:1.5px solid #e4e1ea;border-radius:12px;width:100%}
+.kopt.on{border-color:#0b051d}
+.kopt .radio.on{border-color:#0b051d}
+.kopt .txt{flex:1}.kopt b{display:block;font-size:15px}.kopt small{color:#5c5866;font-size:12.5px}
+.kbtn{margin-top:10px;background:#0b051d;color:#fff;border-radius:12px;padding:15px;font-weight:700;font-size:15.5px}
+.klink{color:#5c5866;font-weight:600;font-size:14px;padding:8px}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes rot{to{transform:rotate(360deg)}}
 .klarna{width:46px;height:30px;border-radius:6px;background:#ffb3c7;color:#0b051d;display:grid;place-items:center;font-family:var(--body);font-weight:800;font-size:11.5px;letter-spacing:-.01em;flex:none}
 .visa{width:46px;height:30px;border-radius:6px;background:var(--visa);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-style:italic;font-size:12px;letter-spacing:.04em;flex:none}
 .addcard{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px dashed #b8c6c2;border-radius:14px;padding:14px;margin-bottom:8px}
@@ -322,6 +366,7 @@ a{color:var(--green)}
     <div class="statusbar"><span>9:41</span><span>●●● ▮</span></div>
     <main class="view" id="view"></main>
     <nav class="tabbar" id="tabbar"></nav>
+    <div id="sheet"></div>
     <div class="toast" id="toast" role="status"></div>
   </div>
 </div>
@@ -406,7 +451,7 @@ const STR = {
     acceptTerms:'Jag har läst och godkänner <u>betalningsvillkoren</u>.', fee:'Serviceavgift', total:'Totalt',
     safePay:'Beloppet reserveras på ditt VISA-kort och dras först när jobbet är klart.', safePayK:'Du slutför betalningen hos Klarna och väljer där hur du vill betala. Klarnas villkor gäller.',
     pickTimeFirst:'Välj en tid för att fortsätta', acceptFirst:'Godkänn betalningsvillkoren', needCard:'Lägg till ett VISA-kort', finish:'Slutför bokning · {sum}', fillAddr:'Fyll i en adress först',
-    confirm:'Bekräftelse', doneT:'Bokningen är klar!', withWho:'{t} med {w}', bookingNo:'Bokningsnummer', paidWith:'Betalas med', myBookings:'Visa mina bokningar', toHome:'Till startsidan',
+    confirm:'Bekräftelse', doneT:'Bokningen är klar!', withWho:'{t} med {w}', bookingNo:'Bokningsnummer', paidWith:'Betalt med', myBookings:'Visa mina bokningar', toHome:'Till startsidan',
     bookingsT:'Mina bokningar', active:'Aktiva', past:'Tidigare', st_live:'Pågående', st_ok:'Bekräftad', st_past:'Avslutad',
     cancelBk:'Avboka', confirmCancel:'Bekräfta avbokning', cancelled:'Bokningen är avbokad', rebook:'Boka igen', noBookings:'Du har inga bokningar här.', findService:'Hitta en tjänst',
     favsT:'Favoriter', noFavs:'Inga favoriter än. Tryck på hjärtat hos en utförare för att spara den här.', favAdded:'Sparad i favoriter', favRemoved:'Borttagen från favoriter',
@@ -417,6 +462,11 @@ const STR = {
     settingsT:'Inställningar', s_lang:'Språk', s_langSub:'Språk i appen', s_notif:'Notiser', s_push:'Pushnotiser', s_pushSub:'Bokningar och meddelanden', s_email:'E-post', s_emailSub:'Kvitton och bekräftelser', s_sms:'SMS', s_smsSub:'Påminnelse dagen innan',
     s_loc:'Plats', s_city:'Område', s_citySub:'Används för avstånd och karta', s_share:'Dela plats med utförare', s_shareSub:'Bara under en pågående bokning',
     s_pay:'Betalning', s_cards:'Sparade VISA-kort', s_noCards:'Inga sparade kort.', remove:'Ta bort', cardRemoved:'Kortet är borttaget',
+    goPay:'Gå till betalning · {sum}', feeCust:'Avgift för dig', noFeeNote:'Du betalar bara tjänstens pris. Inga avgifter tillkommer.',
+    safePay2:'Du betalar när du bokar. Utföraren får betalt först när jobbet är klart och godkänt. Avbokar du i tid får du pengarna tillbaka.',
+    sh_title:'Betala {sum}', sh_test:'TESTLÄGE', sh_card:'Kort', sh_klarna:'Klarna', sh_pay:'Betala {sum}', sh_addFirst:'Lägg till ett VISA-kort först', sh_secure:'Säker betalning med Stripe. AlltFix ser aldrig dina kortuppgifter.', sh_kInfo:'Du skickas vidare till Klarna och väljer där hur du vill betala.', sh_kGo:'Fortsätt till Klarna', sh_processing:'Betalningen behandlas…', sh_ok:'Betalningen är klar', sh_demo:'Demo: inga riktiga pengar dras.', sh_close:'Stäng',
+    k_title:'Välj hur du vill betala', k_now:'Betala nu', k_nowSub:'Med kort eller bankkonto', k_30:'Betala om 30 dagar', k_30Sub:'Utan avgift om du betalar i tid', k_3:'Dela upp i 3 räntefria delar', k_3Sub:'{m} per månad', k_ok:'Godkänn köp', k_cancel:'Avbryt och gå tillbaka', k_demo:'Simulerad Klarna-sida (demo)',
+    statusPaid:'Betald · utföraren får betalt när jobbet är godkänt', status:'Status',
     s_upd:'Uppdateringar', s_updCur:'Installerad version', s_updCheck:'Sök efter uppdatering', s_updChecking:'Söker…', s_updNone:'Du har den senaste versionen.', s_updErr:'Kunde inte söka. Kontrollera att mobilen har internet.',
     s_updAvail:'Ny version finns: {v}', s_updDate:'Publicerad {d}', s_updNews:'Nyheter', s_updGet:'Ladda ner och installera', s_updHow:'Filen laddas ner i webbläsaren. Öppna den när den är klar och tryck Installera. Dina bokningar och inställningar finns kvar.',
     s_updAuto:'Sök automatiskt', s_updAutoSub:'Kollar efter ny version när appen startar', s_updLast:'Senast kollat {d}', updBanner:'Ny version {v} finns', updBannerSub:'Tryck för att uppdatera',
@@ -458,6 +508,11 @@ const STR = {
     settingsT:'Settings', s_lang:'Language', s_langSub:'App language', s_notif:'Notifications', s_push:'Push notifications', s_pushSub:'Bookings and messages', s_email:'Email', s_emailSub:'Receipts and confirmations', s_sms:'SMS', s_smsSub:'Reminder the day before',
     s_loc:'Location', s_city:'Area', s_citySub:'Used for distances and the map', s_share:'Share location with provider', s_shareSub:'Only during an active booking',
     s_pay:'Payment', s_cards:'Saved VISA cards', s_noCards:'No saved cards.', remove:'Remove', cardRemoved:'Card removed',
+    goPay:'Continue to payment · {sum}', feeCust:'Fee for you', noFeeNote:'You only pay the service price. No fees are added.',
+    safePay2:'You pay when you book. The provider is paid only when the job is done and approved. If you cancel in time, you get your money back.',
+    sh_title:'Pay {sum}', sh_test:'TEST MODE', sh_card:'Card', sh_klarna:'Klarna', sh_pay:'Pay {sum}', sh_addFirst:'Add a VISA card first', sh_secure:'Secure payment with Stripe. AlltFix never sees your card details.', sh_kInfo:'You will continue to Klarna and choose how you want to pay there.', sh_kGo:'Continue to Klarna', sh_processing:'Processing payment…', sh_ok:'Payment complete', sh_demo:'Demo: no real money is charged.', sh_close:'Close',
+    k_title:'Choose how to pay', k_now:'Pay now', k_nowSub:'By card or bank account', k_30:'Pay in 30 days', k_30Sub:'No fee if you pay on time', k_3:'Split into 3 interest-free payments', k_3Sub:'{m} per month', k_ok:'Approve purchase', k_cancel:'Cancel and go back', k_demo:'Simulated Klarna page (demo)',
+    statusPaid:'Paid · the provider is paid when the job is approved', status:'Status',
     s_upd:'Updates', s_updCur:'Installed version', s_updCheck:'Check for updates', s_updChecking:'Checking…', s_updNone:'You have the latest version.', s_updErr:'Could not check. Make sure your phone is online.',
     s_updAvail:'New version available: {v}', s_updDate:'Published {d}', s_updNews:'What’s new', s_updGet:'Download and install', s_updHow:'The file downloads in your browser. Open it when it is done and tap Install. Your bookings and settings are kept.',
     s_updAuto:'Check automatically', s_updAutoSub:'Looks for a new version when the app starts', s_updLast:'Last checked {d}', updBanner:'Version {v} is available', updBannerSub:'Tap to update',
@@ -472,8 +527,8 @@ const TERMS = {
   sv:[
     ['Betalsätt','Du kan betala med VISA-kort (debit eller kredit) eller med Klarna. Andra kort och betalsätt tas inte emot. VISA-kortet kan sparas i appen för snabbare bokning.'],
     ['Klarna','Väljer du Klarna slutför du betalningen hos Klarna och väljer där om du betalar direkt, om 30 dagar eller delar upp betalningen. Klarnas villkor gäller för det alternativ du väljer, och Klarna kan göra en kreditprövning.'],
-    ['När du debiteras','När du bokar med VISA reserveras det totala beloppet på ditt kort. Beloppet dras först när utföraren har markerat jobbet som klart. Om du avbokar i tid släpps reservationen.'],
-    ['Priser och avgifter','Priset visas innan du bokar och är fast för den valda tjänsten. Alla priser är inklusive moms. En serviceavgift på 29 kr tillkommer per bokning. Tillkommer extra arbete eller material måste du godkänna det i appen först.'],
+    ['När du debiteras','Du betalar när du bokar. Pengarna hålls av vår betalpartner Stripe och betalas ut till utföraren först när jobbet är klart och godkänt. Avbokar du i tid får du tillbaka hela beloppet.'],
+    ['Priser och avgifter','Priset visas innan du bokar och är fast för den valda tjänsten. Alla priser är inklusive moms. Du som kund betalar inga avgifter till AlltFix utöver tjänstens pris. Tillkommer extra arbete eller material måste du godkänna det i appen först.'],
     ['Avbokning','Avbokning är kostnadsfri fram till 24 timmar före bokad tid. Vid senare avbokning debiteras 50 % av tjänstens pris. Uteblir utföraren får du hela beloppet tillbaka.'],
     ['RUT- och ROT-avdrag','För tjänster som ger rätt till RUT eller ROT dras avdraget direkt på priset. Du ansvarar för att du har avdragsutrymme kvar. Om Skatteverket nekar avdraget kan mellanskillnaden debiteras i efterhand.'],
     ['Reklamation och garanti','Är du inte nöjd, kontakta kundtjänst i appen inom skälig tid. Genom plattformsgarantin hjälper vi dig att få jobbet åtgärdat eller pengarna tillbaka.'],
@@ -482,8 +537,8 @@ const TERMS = {
   en:[
     ['Payment method','You can pay by VISA card (debit or credit) or with Klarna. Other cards and payment methods are not accepted. You can save your VISA card in the app for faster booking.'],
     ['Klarna','If you choose Klarna, you complete the payment with Klarna and choose there whether to pay now, in 30 days or in instalments. Klarna’s terms apply to the option you choose, and Klarna may run a credit check.'],
-    ['When you are charged','When you book with VISA, the total amount is reserved on your card. It is charged only after the provider marks the job as done. If you cancel in time, the reservation is released.'],
-    ['Prices and fees','The price is shown before you book and is fixed for the selected service. All prices include VAT. A service fee of SEK 29 is added per booking. Any extra work or materials must be approved by you in the app first.'],
+    ['When you are charged','You pay when you book. The money is held by our payment partner Stripe and paid out to the provider only when the job is done and approved. If you cancel in time, you get the full amount back.'],
+    ['Prices and fees','The price is shown before you book and is fixed for the selected service. All prices include VAT. As a customer you pay no fees to AlltFix on top of the service price. Any extra work or materials must be approved by you in the app first.'],
     ['Cancellation','Cancellation is free up to 24 hours before the booked time. Later cancellations are charged 50% of the service price. If the provider does not show up, you get a full refund.'],
     ['RUT and ROT deductions','For services that qualify for RUT or ROT, the deduction is applied directly to the price. You are responsible for having deduction allowance left. If the Swedish Tax Agency rejects the deduction, the difference may be charged afterwards.'],
     ['Complaints and guarantee','If you are not satisfied, contact support in the app within a reasonable time. Through the platform guarantee we help you get the job fixed or your money back.'],
@@ -584,12 +639,12 @@ const services = p => (SERVICES[p.sub] || [
 const iso = d => d.toISOString().slice(0,10);
 const dayOffset = n => { const d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate()+n); return d; };
 const seedBookings = () => [
-  {id:'b1', cat:'hem', title:{sv:'Hemstädning, 3 timmar',en:'Home cleaning, 3 hours'}, who:'Glans Städservice', date:iso(dayOffset(0)), time:'14:00', price:1319, status:'live', card:'1234'},
-  {id:'b2', cat:'bil', title:{sv:'Däckbyte (standard)',en:'Tyre change (standard)'}, who:'Däckhotellet Kista', date:iso(dayOffset(1)), time:'10:00', price:478, status:'ok', card:'1234'},
-  {id:'b3', cat:'flytt', title:{sv:'Flytthjälp (standard)',en:'Moving help (standard)'}, who:'Flyttkompaniet Norr', date:iso(dayOffset(3)), time:'09:00', price:2519, status:'ok', card:'1234'},
-  {id:'b4', cat:'fam', title:{sv:'Barnvakt (standard)',en:'Babysitting (standard)'}, who:'Trygg Barnvakt', date:iso(dayOffset(5)), time:'16:00', price:379, status:'ok', card:'1234'},
-  {id:'b5', cat:'pers', title:{sv:'Frisör (standard)',en:'Hairdresser (standard)'}, who:'Salong Lugnet', date:iso(dayOffset(-14)), time:'11:00', price:624, status:'past', card:'1234'},
-  {id:'b6', cat:'dig', title:{sv:'Datorhjälp (standard)',en:'Computer help (standard)'}, who:'DatorDoktorn', date:iso(dayOffset(-30)), time:'18:00', price:524, status:'past', card:'1234'},
+  {id:'b1', cat:'hem', title:{sv:'Hemstädning, 3 timmar',en:'Home cleaning, 3 hours'}, who:'Glans Städservice', date:iso(dayOffset(0)), time:'14:00', price:1290, status:'live', card:'1234'},
+  {id:'b2', cat:'bil', title:{sv:'Däckbyte (standard)',en:'Tyre change (standard)'}, who:'Däckhotellet Kista', date:iso(dayOffset(1)), time:'10:00', price:449, status:'ok', card:'1234'},
+  {id:'b3', cat:'flytt', title:{sv:'Flytthjälp (standard)',en:'Moving help (standard)'}, who:'Flyttkompaniet Norr', date:iso(dayOffset(3)), time:'09:00', price:2490, status:'ok', card:'1234'},
+  {id:'b4', cat:'fam', title:{sv:'Barnvakt (standard)',en:'Babysitting (standard)'}, who:'Trygg Barnvakt', date:iso(dayOffset(5)), time:'16:00', price:350, status:'ok', card:'1234'},
+  {id:'b5', cat:'pers', title:{sv:'Frisör (standard)',en:'Hairdresser (standard)'}, who:'Salong Lugnet', date:iso(dayOffset(-14)), time:'11:00', price:595, status:'past', card:'1234'},
+  {id:'b6', cat:'dig', title:{sv:'Datorhjälp (standard)',en:'Computer help (standard)'}, who:'DatorDoktorn', date:iso(dayOffset(-30)), time:'18:00', price:495, status:'past', card:'1234'},
 ];
 const APP = {version:'@APP_VERSION@', build:parseInt('@APP_BUILD@', 10) || 0, repo:'menola8803/AllFix'};
 const DEFAULT_SET = {push:true, email:true, sms:false, share:true, city:'kista', autoUpd:true};
@@ -643,7 +698,7 @@ function whenTxt(b){
 /* ---------- helpers ---------- */
 const view = document.getElementById('view');
 const go = (s, p={}) => { S.stack.push({s, ...p}); render(true); };
-const back = () => { if (S.stack.length > 1) S.stack.pop(); else if (S.tab !== 'home') { S.tab = 'home'; S.stack = [{s:'home'}]; } render(true); };
+const back = () => { if (S.sheet){ S.sheet = S.sheet.step === 'klarna' ? Object.assign(S.sheet,{step:'choose'}) : null; S.cardForm = null; render(); return; } if (S.stack.length > 1) S.stack.pop(); else if (S.tab !== 'home') { S.tab = 'home'; S.stack = [{s:'home'}]; } render(true); };
 const tab = name => { S.tab = name; S.stack = [{s:name}]; render(true); };
 let tt;
 function toast(msg){ const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(()=>el.classList.remove('show'), 2200); }
@@ -657,7 +712,8 @@ const topBar = (title, right='') => `<header class="top"><button class="ib" data
 const topPlain = title => `<header class="top"><span></span><h1>${esc(title)}</h1><span></span></header>`;
 const tile = c => `<span class="tile" style="background:${c.c}">${ic(c.icon)}</span>`;
 const starTxt = p => `<span class="stars">${ic('star')}${num1(p.r)}</span> (${p.n})`;
-const payTxt = b => b.pay === 'klarna' ? 'Klarna' : `VISA •••• ${b.card}`;
+const KOPT = {now:'k_now', d30:'k_30', p3:'k_3'};
+const payTxt = b => b.pay === 'klarna' ? (b.kopt ? `Klarna · ${t(KOPT[b.kopt]).replace(/ \(.*$/,'')}` : 'Klarna') : `VISA •••• ${b.card}`;
 const visaRow = (c, on, act, id) => `<button class="pay ${on?'on':''}" ${act?`data-act="${act}" data-id="${id}"`:''}><span class="visa">VISA</span><span class="txt"><b>VISA •••• ${c.last4}</b><small>${t('expires',{e:c.exp})}</small></span>${act?'<span class="radio"></span>':''}</button>`;
 
 /* ---------- screens ---------- */
@@ -750,11 +806,9 @@ const screens = {
     const days = Array.from({length:7}, (_,i) => { const dt = dayOffset(i); return {i, wd: i===0?t('today'):dt.toLocaleDateString(loc(),{weekday:'short'}).replace('.',''), d: dt.getDate()}; });
     const times = ['08:00','10:00','12:00','14:00','16:00','18:00','19:00','20:00'];
     const busy = tm => (d.day*3 + times.indexOf(tm)) % 5 === 1;
-    const fee = 29, sum = svc[1] + fee;
-    const f = S.cardForm;
-    const hasPay = d.pay === 'klarna' || S.cards.length;
-    const ready = d.time && d.terms && hasPay;
-    const label = !d.time ? t('pickTimeFirst') : !hasPay ? t('needCard') : !d.terms ? t('acceptFirst') : t('finish',{sum:kr(sum)});
+    const sum = svc[1];
+    const ready = d.time && d.terms;
+    const label = !d.time ? t('pickTimeFirst') : !d.terms ? t('acceptFirst') : t('goPay',{sum:kr(sum)});
     return `${topBar(t('booking'))}
     <div class="pad">
       <div class="sumcard">${tile(c)}<div style="flex:1;min-width:0"><b>${tr(svc[0])}</b><div class="meta">${esc(p.name)}</div></div><span class="price">${kr(svc[1])}</span></div>
@@ -767,19 +821,16 @@ const screens = {
       <div class="lbl">${t('address')}</div>
       <label class="field">${ic('pin')}<input id="addr" value="${esc(d.addr)}" placeholder="${t('addrPh')}" autocomplete="street-address"></label>
       <div class="lbl">${t('payment')}</div>
-      ${S.cards.map((cd,i)=>visaRow(cd, d.pay==='card' && i===d.card, 'paycard', i)).join('')}
-      <button class="pay ${d.pay==='klarna'?'on':''}" data-act="payklarna"><span class="klarna">Klarna.</span><span class="txt"><b>${t('klarnaPay')}</b><small>${t('klarnaSub')}</small></span><span class="radio"></span></button>
-      ${f ? cardForm(f) : `<button class="linkbtn" data-act="addcard" style="margin:4px 0 2px">${ic('plus')}${t('addVisa')}</button>`}
-      <div class="note" style="justify-content:flex-start">${ic('card')}${t('onlyVisa')}</div>
+      <div class="paylogos"><span class="visa">VISA</span><span class="klarna">Klarna.</span><small>${t('onlyVisa')}</small></div>
       <button class="check ${d.terms?'on':''}" data-act="terms"><span class="box">${ic('check')}</span><span>${t('acceptTerms')}</span></button>
       <div class="totals">
         <div><span>${tr(svc[0])}</span><span>${kr(svc[1])}</span></div>
-        <div><span>${t('fee')}</span><span>${kr(fee)}</span></div>
+        <div><span>${t('feeCust')}</span><span>${kr(0)}</span></div>
         <div class="sum"><span>${t('total')}</span><span>${kr(sum)}</span></div>
       </div>
-      <div class="note">${ic('shield')}${t(d.pay==='klarna'?'safePayK':'safePay')}</div>
+      <div class="note">${ic('shield')}${t('safePay2')}</div>
     </div>
-    <div class="stickybot"><button class="btn block" data-act="confirm" ${ready?'':'disabled'}>${label}</button></div>`;
+    <div class="stickybot"><button class="btn block" data-act="opensheet" ${ready?'':'disabled'}>${ready?ic('lock'):''}${label}</button></div>`;
   },
   done({bid}){
     const b = S.bookings.find(x=>x.id===bid);
@@ -790,7 +841,7 @@ const screens = {
       <p>${esc(t('withWho',{t:tr(b.title), w:b.who}))}<br><b style="color:var(--ink)">${whenTxt(b)}</b></p>
     </div>
     <div class="pad" style="display:flex;flex-direction:column;gap:10px">
-      <div class="totals" style="margin:0"><div><span>${t('bookingNo')}</span><b>AF-${bid.slice(-5).toUpperCase()}</b></div><div><span>${t('paidWith')}</span><span>${payTxt(b)}</span></div><div class="sum"><span>${t('total')}</span><span>${kr(b.price)}</span></div></div>
+      <div class="totals" style="margin:0"><div><span>${t('bookingNo')}</span><b>AF-${bid.slice(-5).toUpperCase()}</b></div><div><span>${t('paidWith')}</span><span>${payTxt(b)}</span></div><div><span>${t('status')}</span><span style="text-align:right;max-width:60%">${t('statusPaid')}</span></div><div class="sum"><span>${t('total')}</span><span>${kr(b.price)}</span></div></div>
       <button class="btn block" data-act="tabto" data-id="bookings">${t('myBookings')}</button>
       <button class="btn ghost block" data-act="tabto" data-id="home">${t('toHome')}</button>
     </div>`;
@@ -883,6 +934,54 @@ function updBox(){
   const msg = u.state === 'none' ? `<div class="updmsg ok">${ic('check')}${t('s_updNone')}</div>`
     : u.state === 'error' ? `<div class="updmsg bad">${ic('info')}${t('s_updErr')}</div>` : '';
   return `<div class="setrow" style="flex-direction:column;align-items:stretch;gap:8px">${msg}<button class="btn ghost block" data-act="updcheck" ${u.state==='checking'?'disabled':''}>${ic('refresh')}${u.state==='checking'?t('s_updChecking'):t('s_updCheck')}</button></div>`;
+}
+function sheetHtml(){
+  const sh = S.sheet, d = S.draft, p = prov(d.pid), svc = services(p)[d.svc], sum = svc[1];
+  if (sh.step === 'klarna'){
+    const m = kr(Math.ceil(sum/3));
+    const opts = [['now','k_now','k_nowSub'],['d30','k_30','k_30Sub'],['p3','k_3','k_3Sub']];
+    return `<div class="kpage" role="dialog" aria-label="Klarna">
+      <div class="khead"><span class="kword">Klarna.</span><span class="kdemo">${t('k_demo')}</span></div>
+      <div class="kbody">
+        <div class="kamount">${kr(sum)}</div><div class="kmerchant">AlltFix · ${esc(tr(svc[0]))}</div>
+        <h3>${t('k_title')}</h3>
+        ${opts.map(([k,a,b])=>`<button class="kopt ${sh.kopt===k?'on':''}" data-act="kopt" data-id="${k}"><span class="radio ${sh.kopt===k?'on':''}"></span><span class="txt"><b>${t(a)}</b><small>${t(b,{m})}</small></span></button>`).join('')}
+        <button class="kbtn" data-act="klarnaok">${t('k_ok')}</button>
+        <button class="klink" data-act="klarnaback">${t('k_cancel')}</button>
+      </div></div>`;
+  }
+  if (sh.step === 'processing' || sh.step === 'ok') return `<div class="sheetwrap"><div class="sheet center">
+      ${sh.step==='ok' ? `<div class="ring">${ic('check')}</div><h3>${t('sh_ok')}</h3>` : `<div class="spin" aria-hidden="true"></div><h3>${t('sh_processing')}</h3>`}
+    </div></div>`;
+  const tabCard = sh.tab === 'card';
+  const canPay = !tabCard || (S.cards.length && !S.cardForm);
+  return `<div class="sheetwrap" data-act="sheetbg"><div class="sheet" role="dialog" aria-label="${t('sh_title',{sum:kr(sum)})}">
+    <div class="shead"><h3>${t('sh_title',{sum:kr(sum)})}</h3><span class="testpill">${t('sh_test')}</span><button class="x" data-act="sheetclose" aria-label="${t('sh_close')}">${ic('x')}</button></div>
+    <div class="ptabs">
+      <button class="ptab ${tabCard?'on':''}" data-act="ptab" data-id="card">${ic('card')}<span>${t('sh_card')}</span><span class="visa sm">VISA</span></button>
+      <button class="ptab ${!tabCard?'on':''}" data-act="ptab" data-id="klarna"><span class="klarna sm">Klarna.</span><span>${t('sh_klarna')}</span></button>
+    </div>
+    ${tabCard ? `
+      ${S.cards.map((cd,i)=>visaRow(cd, i===d.card, 'paycard', i)).join('')}
+      ${S.cardForm ? cardForm(S.cardForm) : `<button class="linkbtn" data-act="addcard" style="margin:2px 0 6px">${ic('plus')}${t('addVisa')}</button>`}
+      <button class="btn block" data-act="sheetpay" ${canPay?'':'disabled'}>${ic('lock')}${S.cards.length ? t('sh_pay',{sum:kr(sum)}) : t('sh_addFirst')}</button>
+    ` : `
+      <div class="kinfo"><span class="klarna">Klarna.</span><p>${t('sh_kInfo')}</p><small>${t('klarnaSub')}</small></div>
+      <button class="btn block kgo" data-act="klarnago">${t('sh_kGo')}</button>
+    `}
+    <div class="ssecure">${ic('lock')}${t('sh_secure')}</div>
+    <div class="ssecure" style="margin-top:2px">${t('sh_demo')}</div>
+  </div></div>`;
+}
+function finishPayment(){
+  const d = S.draft, p = prov(d.pid), svc = services(p)[d.svc], sh = S.sheet;
+  const cd = S.cards[d.card] || S.cards[0];
+  const b = {id:'b'+Date.now().toString(36), cat:p.cat, title:svc[0], who:p.name, date:iso(dayOffset(d.day)), time:d.time, price:svc[1], status:'ok',
+    pay: sh.tab === 'klarna' ? 'klarna' : 'card', kopt: sh.tab === 'klarna' ? sh.kopt : null, card: sh.tab === 'card' && cd ? cd.last4 : null};
+  sh.step = 'processing'; render();
+  setTimeout(() => { if (!S.sheet) return; S.sheet.step = 'ok'; render();
+    setTimeout(() => { S.sheet = null; S.bookings.unshift(b); save(); S.stack = [{s:S.tab}]; go('done', {bid:b.id}); }, 700);
+  }, 1300);
 }
 function cardForm(f){
   return `<div class="addcard">
@@ -978,6 +1077,7 @@ function render(scrollTop){
   view.classList.toggle('fill', isMap);
   view.innerHTML = screens[cur.s](cur);
   document.documentElement.lang = lang;
+  document.getElementById('sheet').innerHTML = S.sheet ? sheetHtml() : '';
   const showTabs = !['book','chat'].includes(cur.s);
   const tb = document.getElementById('tabbar');
   tb.hidden = !showTabs;
@@ -1039,6 +1139,15 @@ document.addEventListener('click', e => {
     case 'time': S.draft.time = id; render(); break;
     case 'paycard': S.draft.card = +id; S.draft.pay = 'card'; render(); break;
     case 'payklarna': S.draft.pay = 'klarna'; render(); break;
+    case 'opensheet': { if (!S.draft.addr.trim()){ toast(t('fillAddr')); document.getElementById('addr').focus(); return; } S.cardForm = null; S.sheet = {step:'choose', tab:'card', kopt:'d30'}; render(); break; }
+    case 'sheetbg': if (e.target === el){ S.sheet = null; S.cardForm = null; render(); } break;
+    case 'sheetclose': S.sheet = null; S.cardForm = null; render(); break;
+    case 'ptab': S.sheet.tab = id; S.cardForm = null; render(); break;
+    case 'sheetpay': finishPayment(); break;
+    case 'klarnago': S.sheet.step = 'klarna'; render(); break;
+    case 'kopt': S.sheet.kopt = id; render(); break;
+    case 'klarnaok': finishPayment(); break;
+    case 'klarnaback': S.sheet.step = 'choose'; render(); break;
     case 'terms': {
       if (e.target.closest('u')) { go('terms'); break; }
       S.draft.terms = !S.draft.terms; render(); break;
@@ -1054,14 +1163,6 @@ document.addEventListener('click', e => {
       S.cardForm = null; save(); render(); toast(t('cardAdded')); break;
     }
     case 'rmcard': S.cards.splice(+id, 1); save(); render(); toast(t('cardRemoved')); break;
-    case 'confirm': {
-      const d = S.draft, p = prov(d.pid), svc = services(p)[d.svc];
-      if (!d.addr.trim()){ toast(t('fillAddr')); document.getElementById('addr').focus(); return; }
-      const cd = S.cards[d.card] || S.cards[0];
-      if (d.pay === 'card' && !cd){ toast(t('needCard')); return; }
-      const b = {id:'b'+Date.now().toString(36), cat:p.cat, title:svc[0], who:p.name, date:iso(dayOffset(d.day)), time:d.time, price:svc[1]+29, status:'ok', pay:d.pay, card:d.pay==='card' && cd ? cd.last4 : null};
-      S.bookings.unshift(b); save(); S.stack = [{s:S.tab}]; go('done', {bid:b.id}); break;
-    }
     case 'tabto': tab(id); break;
     case 'seg': S.seg = id; render(); break;
     case 'cancel': {
