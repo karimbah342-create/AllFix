@@ -2,7 +2,7 @@
   "expo": {
     "name": "AlltFix",
     "slug": "allfix",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,7 @@
     },
     "android": {
       "package": "se.alltfix.demo",
-      "versionCode": 5,
+      "versionCode": 6,
       "adaptiveIcon": {
         "backgroundColor": "#0f2a26",
         "foregroundImage": "./assets/android-icon-foreground.png",

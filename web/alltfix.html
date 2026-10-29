@@ -180,6 +180,7 @@ a{color:var(--green)}
 .pay.on{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
 .pay .txt{flex:1;min-width:0}
 .pay small{display:block;color:var(--muted);font-size:12px}
+.klarna{width:46px;height:30px;border-radius:6px;background:#ffb3c7;color:#0b051d;display:grid;place-items:center;font-family:var(--body);font-weight:800;font-size:11.5px;letter-spacing:-.01em;flex:none}
 .visa{width:46px;height:30px;border-radius:6px;background:var(--visa);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-style:italic;font-size:12px;letter-spacing:.04em;flex:none}
 .addcard{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px dashed #b8c6c2;border-radius:14px;padding:14px;margin-bottom:8px}
 .addcard .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -398,12 +399,12 @@ const STR = {
     services:'Tjänster', lastReview:'Senaste omdöme', review:'Kom i tid, förklarade allt och lämnade rent efter sig. Bokar gärna igen.',
     bookNow:'Boka nu', message:'Meddelande', replies:'Svarar vanligtvis inom 15 min', book:'Boka', googleMaps:'Google Maps',
     booking:'Bokning', service:'Tjänst', pickDay:'Välj dag', pickTime:'Välj tid', address:'Adress', addrPh:'Gatuadress, ort',
-    payment:'Betalning', onlyVisa:'Vi tar endast emot VISA-kort.', addVisa:'Lägg till VISA-kort', cardNo:'Kortnummer', exp:'MM/ÅÅ', cvc:'CVC',
+    payment:'Betalning', onlyVisa:'Vi tar emot VISA-kort och Klarna. Andra kort fungerar inte.', klarnaSub:'Betala direkt, om 30 dagar eller dela upp', klarnaPay:'Klarna', s_klarnaNote:'Klarna väljer du när du bokar. Inget behöver sparas i förväg.', addVisa:'Lägg till VISA-kort', cardNo:'Kortnummer', exp:'MM/ÅÅ', cvc:'CVC',
     saveCard:'Spara kort', cancel:'Avbryt', cardHint:'Demo: inga kortuppgifter skickas eller sparas, bara de fyra sista siffrorna. Testa med 4242 4242 4242 4242.',
     errVisa:'Endast VISA-kort fungerar. Ett VISA-nummer börjar på 4.', errNo:'Kontrollera kortnumret. Det ska vara 16 siffror.', errExp:'Ange giltigt utgångsdatum som MM/ÅÅ.', errCvc:'CVC är de 3 siffrorna på baksidan.',
     cardAdded:'VISA-kortet är tillagt', expires:'Går ut {e}', defaultCard:'Standardkort',
     acceptTerms:'Jag har läst och godkänner <u>betalningsvillkoren</u>.', fee:'Serviceavgift', total:'Totalt',
-    safePay:'Beloppet reserveras på ditt VISA-kort och dras först när jobbet är klart.',
+    safePay:'Beloppet reserveras på ditt VISA-kort och dras först när jobbet är klart.', safePayK:'Du slutför betalningen hos Klarna och väljer där hur du vill betala. Klarnas villkor gäller.',
     pickTimeFirst:'Välj en tid för att fortsätta', acceptFirst:'Godkänn betalningsvillkoren', needCard:'Lägg till ett VISA-kort', finish:'Slutför bokning · {sum}', fillAddr:'Fyll i en adress först',
     confirm:'Bekräftelse', doneT:'Bokningen är klar!', withWho:'{t} med {w}', bookingNo:'Bokningsnummer', paidWith:'Betalas med', myBookings:'Visa mina bokningar', toHome:'Till startsidan',
     bookingsT:'Mina bokningar', active:'Aktiva', past:'Tidigare', st_live:'Pågående', st_ok:'Bekräftad', st_past:'Avslutad',
@@ -439,12 +440,12 @@ const STR = {
     services:'Services', lastReview:'Latest review', review:'Arrived on time, explained everything and left the place clean. Happy to book again.',
     bookNow:'Book now', message:'Message', replies:'Usually replies within 15 min', book:'Book', googleMaps:'Google Maps',
     booking:'Booking', service:'Service', pickDay:'Choose day', pickTime:'Choose time', address:'Address', addrPh:'Street address, city',
-    payment:'Payment', onlyVisa:'We only accept VISA cards.', addVisa:'Add VISA card', cardNo:'Card number', exp:'MM/YY', cvc:'CVC',
+    payment:'Payment', onlyVisa:'We accept VISA cards and Klarna. Other cards do not work.', klarnaSub:'Pay now, in 30 days or in instalments', klarnaPay:'Klarna', s_klarnaNote:'You choose Klarna when you book. Nothing needs to be saved in advance.', addVisa:'Add VISA card', cardNo:'Card number', exp:'MM/YY', cvc:'CVC',
     saveCard:'Save card', cancel:'Cancel', cardHint:'Demo: no card details are sent or stored, only the last four digits. Try 4242 4242 4242 4242.',
     errVisa:'Only VISA cards work. A VISA number starts with 4.', errNo:'Check the card number. It should be 16 digits.', errExp:'Enter a valid expiry date as MM/YY.', errCvc:'The CVC is the 3 digits on the back.',
     cardAdded:'VISA card added', expires:'Expires {e}', defaultCard:'Default card',
     acceptTerms:'I have read and accept the <u>payment terms</u>.', fee:'Service fee', total:'Total',
-    safePay:'The amount is reserved on your VISA card and charged only when the job is done.',
+    safePay:'The amount is reserved on your VISA card and charged only when the job is done.', safePayK:'You complete the payment with Klarna and choose there how you want to pay. Klarna’s terms apply.',
     pickTimeFirst:'Choose a time to continue', acceptFirst:'Accept the payment terms', needCard:'Add a VISA card', finish:'Complete booking · {sum}', fillAddr:'Enter an address first',
     confirm:'Confirmation', doneT:'You’re booked!', withWho:'{t} with {w}', bookingNo:'Booking number', paidWith:'Paid with', myBookings:'View my bookings', toHome:'Back to home',
     bookingsT:'My bookings', active:'Active', past:'Past', st_live:'In progress', st_ok:'Confirmed', st_past:'Completed',
@@ -469,8 +470,9 @@ const STR = {
 };
 const TERMS = {
   sv:[
-    ['Betalsätt','Betalning sker endast med VISA-kort, debit eller kredit. Andra kort och betalsätt tas inte emot. Kortet kan sparas i appen för snabbare bokning.'],
-    ['När du debiteras','När du bokar reserveras det totala beloppet på ditt kort. Beloppet dras först när utföraren har markerat jobbet som klart. Om du avbokar i tid släpps reservationen.'],
+    ['Betalsätt','Du kan betala med VISA-kort (debit eller kredit) eller med Klarna. Andra kort och betalsätt tas inte emot. VISA-kortet kan sparas i appen för snabbare bokning.'],
+    ['Klarna','Väljer du Klarna slutför du betalningen hos Klarna och väljer där om du betalar direkt, om 30 dagar eller delar upp betalningen. Klarnas villkor gäller för det alternativ du väljer, och Klarna kan göra en kreditprövning.'],
+    ['När du debiteras','När du bokar med VISA reserveras det totala beloppet på ditt kort. Beloppet dras först när utföraren har markerat jobbet som klart. Om du avbokar i tid släpps reservationen.'],
     ['Priser och avgifter','Priset visas innan du bokar och är fast för den valda tjänsten. Alla priser är inklusive moms. En serviceavgift på 29 kr tillkommer per bokning. Tillkommer extra arbete eller material måste du godkänna det i appen först.'],
     ['Avbokning','Avbokning är kostnadsfri fram till 24 timmar före bokad tid. Vid senare avbokning debiteras 50 % av tjänstens pris. Uteblir utföraren får du hela beloppet tillbaka.'],
     ['RUT- och ROT-avdrag','För tjänster som ger rätt till RUT eller ROT dras avdraget direkt på priset. Du ansvarar för att du har avdragsutrymme kvar. Om Skatteverket nekar avdraget kan mellanskillnaden debiteras i efterhand.'],
@@ -478,8 +480,9 @@ const TERMS = {
     ['Kvitton','Kvitto skickas till din e-post när betalningen är genomförd och finns alltid under Profil → Kvitton.'],
   ],
   en:[
-    ['Payment method','Payment is by VISA card only, debit or credit. Other cards and payment methods are not accepted. You can save your card in the app for faster booking.'],
-    ['When you are charged','When you book, the total amount is reserved on your card. It is charged only after the provider marks the job as done. If you cancel in time, the reservation is released.'],
+    ['Payment method','You can pay by VISA card (debit or credit) or with Klarna. Other cards and payment methods are not accepted. You can save your VISA card in the app for faster booking.'],
+    ['Klarna','If you choose Klarna, you complete the payment with Klarna and choose there whether to pay now, in 30 days or in instalments. Klarna’s terms apply to the option you choose, and Klarna may run a credit check.'],
+    ['When you are charged','When you book with VISA, the total amount is reserved on your card. It is charged only after the provider marks the job as done. If you cancel in time, the reservation is released.'],
     ['Prices and fees','The price is shown before you book and is fixed for the selected service. All prices include VAT. A service fee of SEK 29 is added per booking. Any extra work or materials must be approved by you in the app first.'],
     ['Cancellation','Cancellation is free up to 24 hours before the booked time. Later cancellations are charged 50% of the service price. If the provider does not show up, you get a full refund.'],
     ['RUT and ROT deductions','For services that qualify for RUT or ROT, the deduction is applied directly to the price. You are responsible for having deduction allowance left. If the Swedish Tax Agency rejects the deduction, the difference may be charged afterwards.'],
@@ -654,6 +657,7 @@ const topBar = (title, right='') => `<header class="top"><button class="ib" data
 const topPlain = title => `<header class="top"><span></span><h1>${esc(title)}</h1><span></span></header>`;
 const tile = c => `<span class="tile" style="background:${c.c}">${ic(c.icon)}</span>`;
 const starTxt = p => `<span class="stars">${ic('star')}${num1(p.r)}</span> (${p.n})`;
+const payTxt = b => b.pay === 'klarna' ? 'Klarna' : `VISA •••• ${b.card}`;
 const visaRow = (c, on, act, id) => `<button class="pay ${on?'on':''}" ${act?`data-act="${act}" data-id="${id}"`:''}><span class="visa">VISA</span><span class="txt"><b>VISA •••• ${c.last4}</b><small>${t('expires',{e:c.exp})}</small></span>${act?'<span class="radio"></span>':''}</button>`;
 
 /* ---------- screens ---------- */
@@ -748,8 +752,9 @@ const screens = {
     const busy = tm => (d.day*3 + times.indexOf(tm)) % 5 === 1;
     const fee = 29, sum = svc[1] + fee;
     const f = S.cardForm;
-    const ready = d.time && d.terms && S.cards.length;
-    const label = !d.time ? t('pickTimeFirst') : !S.cards.length ? t('needCard') : !d.terms ? t('acceptFirst') : t('finish',{sum:kr(sum)});
+    const hasPay = d.pay === 'klarna' || S.cards.length;
+    const ready = d.time && d.terms && hasPay;
+    const label = !d.time ? t('pickTimeFirst') : !hasPay ? t('needCard') : !d.terms ? t('acceptFirst') : t('finish',{sum:kr(sum)});
     return `${topBar(t('booking'))}
     <div class="pad">
       <div class="sumcard">${tile(c)}<div style="flex:1;min-width:0"><b>${tr(svc[0])}</b><div class="meta">${esc(p.name)}</div></div><span class="price">${kr(svc[1])}</span></div>
@@ -762,7 +767,8 @@ const screens = {
       <div class="lbl">${t('address')}</div>
       <label class="field">${ic('pin')}<input id="addr" value="${esc(d.addr)}" placeholder="${t('addrPh')}" autocomplete="street-address"></label>
       <div class="lbl">${t('payment')}</div>
-      ${S.cards.map((cd,i)=>visaRow(cd, i===d.card, 'paycard', i)).join('')}
+      ${S.cards.map((cd,i)=>visaRow(cd, d.pay==='card' && i===d.card, 'paycard', i)).join('')}
+      <button class="pay ${d.pay==='klarna'?'on':''}" data-act="payklarna"><span class="klarna">Klarna.</span><span class="txt"><b>${t('klarnaPay')}</b><small>${t('klarnaSub')}</small></span><span class="radio"></span></button>
       ${f ? cardForm(f) : `<button class="linkbtn" data-act="addcard" style="margin:4px 0 2px">${ic('plus')}${t('addVisa')}</button>`}
       <div class="note" style="justify-content:flex-start">${ic('card')}${t('onlyVisa')}</div>
       <button class="check ${d.terms?'on':''}" data-act="terms"><span class="box">${ic('check')}</span><span>${t('acceptTerms')}</span></button>
@@ -771,7 +777,7 @@ const screens = {
         <div><span>${t('fee')}</span><span>${kr(fee)}</span></div>
         <div class="sum"><span>${t('total')}</span><span>${kr(sum)}</span></div>
       </div>
-      <div class="note">${ic('shield')}${t('safePay')}</div>
+      <div class="note">${ic('shield')}${t(d.pay==='klarna'?'safePayK':'safePay')}</div>
     </div>
     <div class="stickybot"><button class="btn block" data-act="confirm" ${ready?'':'disabled'}>${label}</button></div>`;
   },
@@ -784,7 +790,7 @@ const screens = {
       <p>${esc(t('withWho',{t:tr(b.title), w:b.who}))}<br><b style="color:var(--ink)">${whenTxt(b)}</b></p>
     </div>
     <div class="pad" style="display:flex;flex-direction:column;gap:10px">
-      <div class="totals" style="margin:0"><div><span>${t('bookingNo')}</span><b>AF-${bid.slice(-5).toUpperCase()}</b></div><div><span>${t('paidWith')}</span><span>VISA •••• ${b.card}</span></div><div class="sum"><span>${t('total')}</span><span>${kr(b.price)}</span></div></div>
+      <div class="totals" style="margin:0"><div><span>${t('bookingNo')}</span><b>AF-${bid.slice(-5).toUpperCase()}</b></div><div><span>${t('paidWith')}</span><span>${payTxt(b)}</span></div><div class="sum"><span>${t('total')}</span><span>${kr(b.price)}</span></div></div>
       <button class="btn block" data-act="tabto" data-id="bookings">${t('myBookings')}</button>
       <button class="btn ghost block" data-act="tabto" data-id="home">${t('toHome')}</button>
     </div>`;
@@ -815,7 +821,7 @@ const screens = {
   receipts(){
     const list = S.bookings.slice().sort((a,b)=>b.date.localeCompare(a.date));
     return `${topBar(t('receiptsT'))}
-    <div class="pad">${list.length ? `<div class="list">${list.map(b=>`<div class="rcpt"><div><b>${tr(b.title)}</b>${esc(b.who)} · ${whenTxt(b)}<br>VISA •••• ${b.card}</div><span class="price" style="color:var(--ink)">${kr(b.price)}</span></div>`).join('')}</div>` : `<p class="empty">${t('noReceipts')}</p>`}</div>`;
+    <div class="pad">${list.length ? `<div class="list">${list.map(b=>`<div class="rcpt"><div><b>${tr(b.title)}</b>${esc(b.who)} · ${whenTxt(b)}<br>${payTxt(b)}</div><span class="price" style="color:var(--ink)">${kr(b.price)}</span></div>`).join('')}</div>` : `<p class="empty">${t('noReceipts')}</p>`}</div>`;
   },
   terms(){
     return `${topBar(t('termsT'))}
@@ -842,6 +848,7 @@ const screens = {
         ${S.cards.length ? S.cards.map((cd,i)=>`<div class="pay" style="margin:0 0 8px"><span class="visa">VISA</span><span class="txt"><b>VISA •••• ${cd.last4}</b><small>${t('expires',{e:cd.exp})}${i===0?' · '+t('defaultCard'):''}</small></span><button class="chip" data-act="rmcard" data-id="${i}">${t('remove')}</button></div>`).join('') : `<p class="note" style="margin:6px 0 10px">${t('s_noCards')}</p>`}
         ${S.cardForm ? cardForm(S.cardForm) : `<button class="linkbtn" data-act="addcard" style="padding:6px 4px">${ic('plus')}${t('addVisa')}</button>`}
         <div class="note" style="justify-content:flex-start">${ic('card')}${t('onlyVisa')}</div>
+        <div class="pay" style="margin:8px 0 0"><span class="klarna">Klarna.</span><span class="txt"><b>${t('klarnaPay')}</b><small>${t('s_klarnaNote')}</small></span></div>
         <button class="row" data-act="go" data-id="terms" style="margin-top:6px"><span class="txt"><b style="font-size:14.5px">${t('m_terms')}</b></span>${ic('right','chev')}</button>
       </div>
       <div class="lbl" id="updates">${t('s_upd')}</div>
@@ -1026,11 +1033,12 @@ document.addEventListener('click', e => {
     case 'mapfocus': go('map', {focus:id}); break;
     case 'prov': e.stopPropagation(); go('prov', {id}); break;
     case 'fav': { const i = S.favs.indexOf(id); i<0 ? S.favs.push(id) : S.favs.splice(i,1); save(); render(); toast(i<0 ? t('favAdded') : t('favRemoved')); break; }
-    case 'book': e.stopPropagation(); S.cardForm = null; S.draft = {pid:id, svc:0, day:0, time:null, addr:'Hanstavägen 82, Kista', card:0, terms:false}; go('book'); break;
+    case 'book': e.stopPropagation(); S.cardForm = null; S.draft = {pid:id, svc:0, day:0, time:null, addr:'Hanstavägen 82, Kista', card:0, pay:'card', terms:false}; go('book'); break;
     case 'svc': S.draft.svc = +id; render(); break;
     case 'day': S.draft.day = +id; S.draft.time = null; render(); break;
     case 'time': S.draft.time = id; render(); break;
-    case 'paycard': S.draft.card = +id; render(); break;
+    case 'paycard': S.draft.card = +id; S.draft.pay = 'card'; render(); break;
+    case 'payklarna': S.draft.pay = 'klarna'; render(); break;
     case 'terms': {
       if (e.target.closest('u')) { go('terms'); break; }
       S.draft.terms = !S.draft.terms; render(); break;
@@ -1042,7 +1050,7 @@ document.addEventListener('click', e => {
       const err = validateCard(no, exp, cvc);
       if (err){ S.cardForm = {no, exp, err}; render(); return; }
       S.cards.push({last4: no.replace(/\D/g,'').slice(-4), exp});
-      if (S.draft && cur.s === 'book') S.draft.card = S.cards.length - 1;
+      if (S.draft && cur.s === 'book'){ S.draft.card = S.cards.length - 1; S.draft.pay = 'card'; }
       S.cardForm = null; save(); render(); toast(t('cardAdded')); break;
     }
     case 'rmcard': S.cards.splice(+id, 1); save(); render(); toast(t('cardRemoved')); break;
@@ -1050,7 +1058,8 @@ document.addEventListener('click', e => {
       const d = S.draft, p = prov(d.pid), svc = services(p)[d.svc];
       if (!d.addr.trim()){ toast(t('fillAddr')); document.getElementById('addr').focus(); return; }
       const cd = S.cards[d.card] || S.cards[0];
-      const b = {id:'b'+Date.now().toString(36), cat:p.cat, title:svc[0], who:p.name, date:iso(dayOffset(d.day)), time:d.time, price:svc[1]+29, status:'ok', card:cd.last4};
+      if (d.pay === 'card' && !cd){ toast(t('needCard')); return; }
+      const b = {id:'b'+Date.now().toString(36), cat:p.cat, title:svc[0], who:p.name, date:iso(dayOffset(d.day)), time:d.time, price:svc[1]+29, status:'ok', pay:d.pay, card:d.pay==='card' && cd ? cd.last4 : null};
       S.bookings.unshift(b); save(); S.stack = [{s:S.tab}]; go('done', {bid:b.id}); break;
     }
     case 'tabto': tab(id); break;
