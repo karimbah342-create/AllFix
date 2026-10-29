@@ -2,6 +2,12 @@
 
 Klickbar demo av AlltFix. Alla utförare, priser och bokningar är exempeldata.
 
+## Ladda ner färdig APK
+Varje push till `main` bygger en ny `allfix.apk` automatiskt (GitHub Actions, se `.github/workflows/android-apk.yml`).
+Senaste versionen: https://github.com/menola8803/allfix/releases/latest
+Öppna länken på Android-mobilen, tryck på **allfix.apk** och installera.
+Bygget kan också startas manuellt: fliken **Actions → Bygg Android APK → Run workflow**.
+
 ## 1. Kör i Expo Go (snabbast)
 Kräver Node.js 20+ på datorn och appen **Expo Go** på mobilen (samma wifi).
 
