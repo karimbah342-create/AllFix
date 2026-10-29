@@ -66,7 +66,9 @@ jobs:
         run: |
           VERSION=$(node -p "require('./app.json').expo.version")
           TAG="v${VERSION}-build${{ github.run_number }}"
+          git log -1 --pretty=%B | grep -viE '^(co-authored-by|claude-session)' > notes.md || true
+          printf '\nLadda ner allfix.apk på Android-mobilen och installera ovanpå den gamla versionen.\n' >> notes.md
           gh release create "$TAG" allfix.apk \
             --title "AlltFix ${VERSION} (bygge ${{ github.run_number }})" \
-            --notes "Android-app för AlltFix-demon. Ladda ner **allfix.apk** på Android-mobilen och installera. Tillåt 'Installera okända appar' om telefonen frågar." \
+            --notes-file notes.md \
             --latest

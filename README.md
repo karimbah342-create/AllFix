@@ -44,6 +44,10 @@ Bygget finns också under https://expo.dev → ditt projekt → Builds.
 Hela gränssnittet finns i `web/alltfix.html` (svenska och engelska, karta, bokning, inställningar).
 Efter ändringar: kör `npm run build:web` så skapas `appHtml.js`. GitHub gör det också automatiskt vid varje bygge.
 
+## Uppdatera appen
+Från version 1.2.0 finns **Inställningar → Uppdateringar** i appen. Appen jämför sin version med senaste releasen här på GitHub och visar en knapp för att ladda ner den nya APK:n. Med "Sök automatiskt" påslaget kollar appen vid start och visar en ruta på startsidan när en ny version finns.
+Versionen styrs av `version` i `app.json` plus byggnumret från GitHub Actions (taggen `v<version>-build<nr>`).
+
 ## Kartan – ingen installation behövs
 Kartan i appen visar **OpenStreetMap**. OpenStreetMap är ingen app och behöver **inte installeras**: kartbilderna hämtas direkt från internet när kartan öppnas.
 

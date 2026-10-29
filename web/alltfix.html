@@ -249,6 +249,22 @@ a{color:var(--green)}
 .terms p,.terms li{font-size:14px;line-height:1.6;color:#2c3b37;margin:0}
 .terms ul{margin:0;padding-left:20px}
 .demo-note{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:600;margin-bottom:12px;line-height:1.45}
+.updbox{display:flex;flex-direction:column;gap:8px;margin:6px;padding:14px;border-radius:14px;background:var(--green-soft);color:#174a3d}
+.updbox b{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--forest)}
+.updbox b .ico{color:var(--green)}
+.updbox small{font-size:12.5px;line-height:1.45;color:#3d5b52}
+.updbox .news{background:rgba(255,255,255,.7);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.45}
+.updbox .news span{font-weight:700;display:block;margin-bottom:4px}
+.updbox .news ul{margin:0;padding-left:18px}
+.updmsg{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}
+.updmsg .ico{width:18px;height:18px}
+.updmsg.ok{color:var(--green)} .updmsg.bad{color:var(--danger)}
+.updbanner{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--green-soft);border:1px solid #bfe3d4;border-radius:16px;padding:12px 14px;margin-bottom:14px;color:var(--forest)}
+.updbanner > .ico:first-child{color:var(--green)}
+.updbanner .txt{flex:1;min-width:0}
+.updbanner b{display:block;font-size:14.5px}
+.updbanner small{display:block;font-size:12.5px;color:#3d5b52}
+.updbanner .chev{width:18px;height:18px;color:#5f8a7d}
 .rcpt{display:flex;justify-content:space-between;gap:12px;padding:12px 10px;font-size:13px;color:var(--muted)}
 .rcpt + .rcpt{border-top:1px solid var(--line)}
 .rcpt b{display:block;color:var(--ink);font-size:14.5px}
@@ -347,6 +363,8 @@ const I = {
   globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
   bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
   lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  refresh:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
+  download:'<path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/>',
   info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
   settings:'<circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',
   send:'<path d="m4 12 16-8-6 16-2-6z"/>',
@@ -398,6 +416,9 @@ const STR = {
     settingsT:'Inställningar', s_lang:'Språk', s_langSub:'Språk i appen', s_notif:'Notiser', s_push:'Pushnotiser', s_pushSub:'Bokningar och meddelanden', s_email:'E-post', s_emailSub:'Kvitton och bekräftelser', s_sms:'SMS', s_smsSub:'Påminnelse dagen innan',
     s_loc:'Plats', s_city:'Område', s_citySub:'Används för avstånd och karta', s_share:'Dela plats med utförare', s_shareSub:'Bara under en pågående bokning',
     s_pay:'Betalning', s_cards:'Sparade VISA-kort', s_noCards:'Inga sparade kort.', remove:'Ta bort', cardRemoved:'Kortet är borttaget',
+    s_upd:'Uppdateringar', s_updCur:'Installerad version', s_updCheck:'Sök efter uppdatering', s_updChecking:'Söker…', s_updNone:'Du har den senaste versionen.', s_updErr:'Kunde inte söka. Kontrollera att mobilen har internet.',
+    s_updAvail:'Ny version finns: {v}', s_updDate:'Publicerad {d}', s_updNews:'Nyheter', s_updGet:'Ladda ner och installera', s_updHow:'Filen laddas ner i webbläsaren. Öppna den när den är klar och tryck Installera. Dina bokningar och inställningar finns kvar.',
+    s_updAuto:'Sök automatiskt', s_updAutoSub:'Kollar efter ny version när appen startar', s_updLast:'Senast kollat {d}', updBanner:'Ny version {v} finns', updBannerSub:'Tryck för att uppdatera',
     s_about:'Om appen', s_version:'Version', s_demo:'Demo: alla utförare, priser och bokningar är exempeldata.', s_reset:'Återställ demodata', s_resetConfirm:'Tryck igen för att återställa', s_resetDone:'Demodatan är återställd', saved:'Sparat',
     termsT:'Betalningsvillkor', termsDemo:'Exempelvillkor för demo. Ersätt med era egna villkor innan appen lanseras.',
     chatPh:'Skriv ett meddelande…', supportName:'AlltFix Kundtjänst', supportHi:'Hej Karim! Jag är AlltFix-assistenten. Vad kan jag hjälpa dig med?', provHi:'Hej! Det här är {w}. Berätta vad du behöver hjälp med så återkommer vi med pris och tid.',
@@ -436,6 +457,9 @@ const STR = {
     settingsT:'Settings', s_lang:'Language', s_langSub:'App language', s_notif:'Notifications', s_push:'Push notifications', s_pushSub:'Bookings and messages', s_email:'Email', s_emailSub:'Receipts and confirmations', s_sms:'SMS', s_smsSub:'Reminder the day before',
     s_loc:'Location', s_city:'Area', s_citySub:'Used for distances and the map', s_share:'Share location with provider', s_shareSub:'Only during an active booking',
     s_pay:'Payment', s_cards:'Saved VISA cards', s_noCards:'No saved cards.', remove:'Remove', cardRemoved:'Card removed',
+    s_upd:'Updates', s_updCur:'Installed version', s_updCheck:'Check for updates', s_updChecking:'Checking…', s_updNone:'You have the latest version.', s_updErr:'Could not check. Make sure your phone is online.',
+    s_updAvail:'New version available: {v}', s_updDate:'Published {d}', s_updNews:'What’s new', s_updGet:'Download and install', s_updHow:'The file downloads in your browser. Open it when it is done and tap Install. Your bookings and settings are kept.',
+    s_updAuto:'Check automatically', s_updAutoSub:'Looks for a new version when the app starts', s_updLast:'Last checked {d}', updBanner:'Version {v} is available', updBannerSub:'Tap to update',
     s_about:'About', s_version:'Version', s_demo:'Demo: all providers, prices and bookings are sample data.', s_reset:'Reset demo data', s_resetConfirm:'Tap again to reset', s_resetDone:'Demo data has been reset', saved:'Saved',
     termsT:'Payment terms', termsDemo:'Sample terms for the demo. Replace them with your own terms before launch.',
     chatPh:'Write a message…', supportName:'AlltFix Support', supportHi:'Hi Karim! I’m the AlltFix assistant. How can I help?', provHi:'Hi! This is {w}. Tell us what you need and we’ll get back with a price and time.',
@@ -564,7 +588,8 @@ const seedBookings = () => [
   {id:'b5', cat:'pers', title:{sv:'Frisör (standard)',en:'Hairdresser (standard)'}, who:'Salong Lugnet', date:iso(dayOffset(-14)), time:'11:00', price:624, status:'past', card:'1234'},
   {id:'b6', cat:'dig', title:{sv:'Datorhjälp (standard)',en:'Computer help (standard)'}, who:'DatorDoktorn', date:iso(dayOffset(-30)), time:'18:00', price:524, status:'past', card:'1234'},
 ];
-const DEFAULT_SET = {push:true, email:true, sms:false, share:true, city:'kista'};
+const APP = {version:'@APP_VERSION@', build:parseInt('@APP_BUILD@', 10) || 0, repo:'menola8803/AllFix'};
+const DEFAULT_SET = {push:true, email:true, sms:false, share:true, city:'kista', autoUpd:true};
 const S = {
   bookings: store.get('bookings', null) || seedBookings(),
   favs: store.get('favs', ['p3']),
@@ -574,6 +599,35 @@ const S = {
   draft:null, chats:{}, cardForm:null, mapInfo: !store.get('mapInfoSeen', false), mapErr:false,
 };
 const city = () => CITIES[S.set.city] || CITIES.kista;
+S.upd = {state:'idle', latest:null, checked: store.get('updChecked', 0)};
+
+/* ---------- updates (GitHub Releases) ---------- */
+function parseTag(tag){
+  const m = String(tag || '').match(/^v?(\d+(?:\.\d+)*)(?:-build(\d+))?/);
+  return m ? {version:m[1], build:+(m[2] || 0)} : null;
+}
+function isNewer(a, b){ // is a newer than b?
+  const x = a.version.split('.').map(Number), y = b.version.split('.').map(Number);
+  for (let i = 0; i < Math.max(x.length, y.length); i++){ const d = (x[i] || 0) - (y[i] || 0); if (d) return d > 0; }
+  return a.build > b.build;
+}
+const verTxt = v => v.build ? `${v.version} (${v.build})` : v.version;
+async function checkUpdate(silent){
+  S.upd.state = 'checking'; if (!silent) render();
+  try {
+    const res = await fetch(`https://api.github.com/repos/${APP.repo}/releases/latest`, {headers:{Accept:'application/vnd.github+json'}, cache:'no-store'});
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const rel = await res.json(), v = parseTag(rel.tag_name);
+    const asset = (rel.assets || []).find(a => /\.apk$/i.test(a.name));
+    if (!v || !asset) throw new Error('no apk');
+    const notes = String(rel.body || '').split('\n').map(l => l.trim()).filter(l => l && !/^(co-authored-by|claude-session)/i.test(l) && !/installera|install/i.test(l)).slice(0, 8);
+    S.upd.latest = {...v, url: asset.browser_download_url, date: rel.published_at, notes};
+    S.upd.state = isNewer(v, APP) ? 'available' : 'none';
+  } catch (e) { S.upd.state = silent ? 'idle' : 'error'; }
+  S.upd.checked = Date.now(); store.set('updChecked', S.upd.checked);
+  const cur = S.stack[S.stack.length - 1];
+  if (!silent || ['settings','home'].includes(cur.s)) render();
+}
 const save = () => { store.set('bookings', S.bookings); store.set('favs', S.favs); store.set('cards', S.cards); store.set('settings', S.set); store.set('lang', lang); };
 save();
 function whenTxt(b){
@@ -613,6 +667,7 @@ const screens = {
       <label class="search">${ic('search')}<input id="q" placeholder="${t('search')}" autocomplete="off" enterkeyhint="search"></label>
     </section>
     <div class="pad">
+      ${S.upd.state==='available' ? `<button class="updbanner" data-act="goupd">${ic('download')}<span class="txt"><b>${t('updBanner',{v:verTxt(S.upd.latest)})}</b><small>${t('updBannerSub')}</small></span>${ic('right','chev')}</button>` : ''}
       <button class="hero" data-act="cat" data-id="hem">
         <svg class="sofa" viewBox="0 0 170 90" aria-hidden="true"><rect x="10" y="30" width="150" height="40" rx="12" fill="#e9dcc6"/><rect x="0" y="40" width="26" height="36" rx="10" fill="#dccbb0"/><rect x="144" y="40" width="26" height="36" rx="10" fill="#dccbb0"/><rect x="34" y="18" width="46" height="30" rx="8" fill="#f2e8d7"/><rect x="88" y="18" width="46" height="30" rx="8" fill="#f2e8d7"/><rect x="20" y="74" width="6" height="12" fill="#6b5640"/><rect x="144" y="74" width="6" height="12" fill="#6b5640"/></svg>
         <h3>${t('heroT')}</h3><p>${t('heroP')}</p>
@@ -789,9 +844,15 @@ const screens = {
         <div class="note" style="justify-content:flex-start">${ic('card')}${t('onlyVisa')}</div>
         <button class="row" data-act="go" data-id="terms" style="margin-top:6px"><span class="txt"><b style="font-size:14.5px">${t('m_terms')}</b></span>${ic('right','chev')}</button>
       </div>
+      <div class="lbl" id="updates">${t('s_upd')}</div>
+      <div class="list">
+        <div class="setrow"><span class="lead" style="color:var(--muted)">${ic('refresh')}</span><div class="txt"><b>${t('s_updCur')}</b><small>${S.upd.checked ? t('s_updLast',{d:new Date(S.upd.checked).toLocaleString(loc(),{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}) : ''}</small></div><span class="price" style="font-size:14px">${verTxt(APP)}</span></div>
+        ${updBox()}
+        ${sw('autoUpd','s_updAuto','s_updAutoSub')}
+      </div>
       <div class="lbl">${t('s_about')}</div>
       <div class="list">
-        <div class="setrow"><div class="txt"><b>${t('s_version')}</b><small>${t('s_demo')}</small></div><span class="price" style="font-size:14px">1.1.2</span></div>
+        <div class="setrow"><div class="txt"><b>${t('s_version')}</b><small>${t('s_demo')}</small></div><span class="price" style="font-size:14px">${verTxt(APP)}</span></div>
       </div>
       <button class="btn danger block" data-act="reset" style="margin-top:16px">${t('s_reset')}</button>
       <div style="height:12px"></div>
@@ -803,6 +864,19 @@ const screens = {
     return `${topBar(who)}<div class="chat" id="chatlog">${msgs.map(m=>`<div class="msg ${m.me?'me':'them'}">${esc(m.t)}</div>`).join('')}</div>`;
   },
 };
+function updBox(){
+  const u = S.upd, L2 = u.latest;
+  if (u.state === 'available') return `<div class="updbox">
+      <b>${ic('download')}${t('s_updAvail',{v:verTxt(L2)})}</b>
+      ${L2.date ? `<small>${t('s_updDate',{d:new Date(L2.date).toLocaleDateString(loc(),{day:'numeric',month:'long',year:'numeric'})})}</small>` : ''}
+      ${L2.notes.length ? `<div class="news"><span>${t('s_updNews')}</span><ul>${L2.notes.map(n=>`<li>${esc(n.replace(/^[-*]\s*/,''))}</li>`).join('')}</ul></div>` : ''}
+      <a class="btn block" href="${esc(L2.url)}" target="_blank" rel="noopener">${ic('download')}${t('s_updGet')}</a>
+      <small>${t('s_updHow')}</small>
+    </div>`;
+  const msg = u.state === 'none' ? `<div class="updmsg ok">${ic('check')}${t('s_updNone')}</div>`
+    : u.state === 'error' ? `<div class="updmsg bad">${ic('info')}${t('s_updErr')}</div>` : '';
+  return `<div class="setrow" style="flex-direction:column;align-items:stretch;gap:8px">${msg}<button class="btn ghost block" data-act="updcheck" ${u.state==='checking'?'disabled':''}>${ic('refresh')}${u.state==='checking'?t('s_updChecking'):t('s_updCheck')}</button></div>`;
+}
 function cardForm(f){
   return `<div class="addcard">
     <label class="field ${f.err==='no'||f.err==='visa'?'bad':''}">${ic('card')}<input id="cno" inputmode="numeric" autocomplete="cc-number" placeholder="${t('cardNo')}" value="${esc(f.no||'')}" maxlength="19"></label>
@@ -989,6 +1063,8 @@ document.addEventListener('click', e => {
     case 'chat': go('chat', {id}); break;
     case 'menu': { const [k,v] = id.split(':'); if (k==='tab') tab(v); else if (k==='go') go(v); else go('chat',{id:v}); break; }
     case 'toggle': S.set[id] = !S.set[id]; save(); render(); break;
+    case 'updcheck': checkUpdate(false); break;
+    case 'goupd': go('settings'); requestAnimationFrame(()=>{ const u = document.getElementById('updates'); if (u) u.scrollIntoView({block:'start'}); }); break;
     case 'lang': lang = id; save(); render(); break;
     case 'reset': {
       if (el.dataset.confirm !== 'y'){ el.dataset.confirm = 'y'; el.textContent = t('s_resetConfirm'); return; }
@@ -1000,4 +1076,5 @@ document.addEventListener('click', e => {
 });
 
 render();
+if (S.set.autoUpd && Date.now() - S.upd.checked > 6 * 3600e3) setTimeout(() => checkUpdate(true), 1500);
 </script>
