@@ -791,7 +791,7 @@ const screens = {
       </div>
       <div class="lbl">${t('s_about')}</div>
       <div class="list">
-        <div class="setrow"><div class="txt"><b>${t('s_version')}</b><small>${t('s_demo')}</small></div><span class="price" style="font-size:14px">1.1.1</span></div>
+        <div class="setrow"><div class="txt"><b>${t('s_version')}</b><small>${t('s_demo')}</small></div><span class="price" style="font-size:14px">1.1.2</span></div>
       </div>
       <button class="btn danger block" data-act="reset" style="margin-top:16px">${t('s_reset')}</button>
       <div style="height:12px"></div>
@@ -846,8 +846,7 @@ function mountMap(){
   const c = city();
   MAP = L.map(el, {zoomControl:true, attributionControl:true, tap:true}).setView([c.lat, c.lng], 12);
   const layers = [
-    ['https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {subdomains:'abcd', maxZoom:19, attribution:'© OpenStreetMap © CARTO'}],
-    ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}],
+    ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}],
   ];
   const useLayer = i => {
     const lyr = L.tileLayer(layers[i][0], layers[i][1]); let ok = 0, bad = 0;

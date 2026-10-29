@@ -50,4 +50,5 @@ Kartan i appen visar **OpenStreetMap**. OpenStreetMap är ingen app och behöver
 - Mobilen måste ha internet (wifi eller mobildata), annars visas en ruta om att kartbilderna inte laddas.
 - Första gången man öppnar kartan visas en informationsruta om detta. Den kan visas igen med i-knappen uppe till höger på kartan.
 - Trycker man på en nål och väljer **Google Maps** öppnas platsen i Google Maps-appen om den finns, annars i webbläsaren. Google Maps behöver alltså inte heller installeras.
-- Tekniskt: kartan ritas med Leaflet (ingår i appen) och kartbilder från CARTO/OpenStreetMap. Laddas de inte provar appen automatiskt OpenStreetMaps egna kartserver.
+- Tekniskt: kartan ritas med Leaflet (ingår i appen) och kartbilder från OpenStreetMaps egen kartserver (tile.openstreetmap.org). Ingen API-nyckel behövs.
+- En separat OpenStreetMap-app på mobilen (t.ex. OsmAnd) används inte av AlltFix och behöver inte vara installerad.
