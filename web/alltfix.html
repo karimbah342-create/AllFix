@@ -267,6 +267,12 @@ a{color:var(--green)}
 .mapcard .x{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex:none}
 .maphint{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:1000;background:var(--card);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--muted);box-shadow:0 3px 10px rgba(0,0,0,.12);white-space:nowrap}
 .leaflet-container{font-family:var(--body)}
+.mapnote{position:absolute;left:12px;right:12px;top:12px;z-index:1100;background:var(--card);border-radius:18px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.22);display:flex;flex-direction:column;gap:8px}
+.mapnote b{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:16px}
+.mapnote b .ico{color:var(--green)}
+.mapnote p{margin:0;font-size:14px;line-height:1.5;color:#2c3b37}
+.mapnote .btn{margin-top:4px;align-self:flex-start}
+.mapnote .btn.block{align-self:stretch}
 
 /* chat */
 .chat{display:flex;flex-direction:column;gap:8px;padding:16px 18px}
@@ -388,7 +394,7 @@ const STR = {
     profileT:'Mitt konto', m_bookings:'Mina bokningar', m_favs:'Mina favoriter', m_map:'Karta', m_receipts:'Kvitton', m_terms:'Betalningsvillkor', m_support:'Kundtjänst (AI)', m_settings:'Inställningar',
     guarT:'Plattformsgaranti', guarP:'Din bokning är skyddad. Om något går fel hjälper vi dig att lösa det, utan krångel.',
     receiptsT:'Kvitton', noReceipts:'Inga kvitton än.',
-    mapT:'Karta', mapHint:'Tryck på en nål för att se utföraren', mapOff:'Kartan kunde inte laddas. Kontrollera internetanslutningen.', openProv:'Visa', youAreHere:'Du är här',
+    mapT:'Karta', mapHint:'Tryck på en nål för att se utföraren', mapOff:'Kartan kunde inte laddas. Kontrollera internetanslutningen.', mapInfoT:'Om kartan', mapInfo1:'Kartan visar OpenStreetMap direkt här i appen. Du behöver inte installera något.', mapInfo2:'Mobilen behöver vara ansluten till internet (wifi eller mobildata) för att kartbilderna ska laddas.', mapInfo3:'Tryck på en nål och välj Google Maps för vägbeskrivning. Den öppnas i Google Maps-appen om du har den, annars i webbläsaren.', mapInfoOk:'OK, jag förstår', mapInfoBtn:'Om kartan', mapErrT:'Kartbilderna laddas inte', mapErr:'Kontrollera att mobilen har internet och försök igen. Nålarna och Google Maps-knappen fungerar ändå.', retry:'Försök igen', openProv:'Visa', youAreHere:'Du är här',
     settingsT:'Inställningar', s_lang:'Språk', s_langSub:'Språk i appen', s_notif:'Notiser', s_push:'Pushnotiser', s_pushSub:'Bokningar och meddelanden', s_email:'E-post', s_emailSub:'Kvitton och bekräftelser', s_sms:'SMS', s_smsSub:'Påminnelse dagen innan',
     s_loc:'Plats', s_city:'Område', s_citySub:'Används för avstånd och karta', s_share:'Dela plats med utförare', s_shareSub:'Bara under en pågående bokning',
     s_pay:'Betalning', s_cards:'Sparade VISA-kort', s_noCards:'Inga sparade kort.', remove:'Ta bort', cardRemoved:'Kortet är borttaget',
@@ -426,7 +432,7 @@ const STR = {
     profileT:'My account', m_bookings:'My bookings', m_favs:'My favourites', m_map:'Map', m_receipts:'Receipts', m_terms:'Payment terms', m_support:'Customer support (AI)', m_settings:'Settings',
     guarT:'Platform guarantee', guarP:'Your booking is protected. If something goes wrong, we help you sort it out, hassle-free.',
     receiptsT:'Receipts', noReceipts:'No receipts yet.',
-    mapT:'Map', mapHint:'Tap a pin to see the provider', mapOff:'The map could not load. Check your internet connection.', openProv:'View', youAreHere:'You are here',
+    mapT:'Map', mapHint:'Tap a pin to see the provider', mapOff:'The map could not load. Check your internet connection.', mapInfoT:'About the map', mapInfo1:'The map shows OpenStreetMap right here in the app. You don’t need to install anything.', mapInfo2:'Your phone needs an internet connection (Wi-Fi or mobile data) to load the map images.', mapInfo3:'Tap a pin and choose Google Maps for directions. It opens in the Google Maps app if you have it, otherwise in your browser.', mapInfoOk:'OK, got it', mapInfoBtn:'About the map', mapErrT:'Map images are not loading', mapErr:'Check that your phone is online and try again. The pins and the Google Maps button still work.', retry:'Try again', openProv:'View', youAreHere:'You are here',
     settingsT:'Settings', s_lang:'Language', s_langSub:'App language', s_notif:'Notifications', s_push:'Push notifications', s_pushSub:'Bookings and messages', s_email:'Email', s_emailSub:'Receipts and confirmations', s_sms:'SMS', s_smsSub:'Reminder the day before',
     s_loc:'Location', s_city:'Area', s_citySub:'Used for distances and the map', s_share:'Share location with provider', s_shareSub:'Only during an active booking',
     s_pay:'Payment', s_cards:'Saved VISA cards', s_noCards:'No saved cards.', remove:'Remove', cardRemoved:'Card removed',
@@ -565,7 +571,7 @@ const S = {
   cards: store.get('cards', [{last4:'1234', exp:'08/28'}]),
   set: Object.assign({}, DEFAULT_SET, store.get('settings', {})),
   stack: [{s:'home'}], tab:'home', seg:'active', q:'', mapCat:'all',
-  draft:null, chats:{}, cardForm:null,
+  draft:null, chats:{}, cardForm:null, mapInfo: !store.get('mapInfoSeen', false), mapErr:false,
 };
 const city = () => CITIES[S.set.city] || CITIES.kista;
 const save = () => { store.set('bookings', S.bookings); store.set('favs', S.favs); store.set('cards', S.cards); store.set('settings', S.set); store.set('lang', lang); };
@@ -637,7 +643,7 @@ const screens = {
     const vars = `--c:${c.c};--c2:${shade(c.c,.62)};--tint:${mix(c.c,.9)}`;
     const chips = `<div class="chips">${['all',...c.subs].map(s=>`<button class="chip ${s===sub?'on':''}" data-act="sub" data-id="${s}">${s==='all'?t('all'):subName(s)}</button>`).join('')}</div>`;
     if (cur.mode === 'map') return `${topBar(tr(c.name), right)}<div class="catpage" style="${vars};min-height:0;display:contents">${chips}</div>
-      <div class="mapbox"><div id="map" data-list="${ps.map(p=>p.id).join(',')}"></div><div class="maphint">${t('mapHint')}</div><div class="mapcard" id="mapcard" hidden></div></div>`;
+      <div class="mapbox"><div id="map" data-list="${ps.map(p=>p.id).join(',')}"></div><div class="maphint">${t('mapHint')}</div><div class="mapcard" id="mapcard" hidden></div>${mapNotice()}</div>`;
     return `${topBar(tr(c.name), right)}
     <div class="catpage" style="${vars}">
       <section class="cbanner">${ic(c.icon,'big')}<h2>${tr(c.name)}</h2><p>${tr(c.desc)}</p><span class="count">${t('nProv',{n:ps.length, city:city().short})}</span></section>
@@ -650,9 +656,9 @@ const screens = {
   },
   map(){
     const list = PROV.filter(p => S.mapCat === 'all' || p.cat === S.mapCat);
-    return `${topPlain(t('mapT'))}
+    return `<header class="top"><span></span><h1>${t('mapT')}</h1><button class="ib" data-act="mapinfo" aria-label="${t('mapInfoBtn')}">${ic('info')}</button></header>
     <div class="chips">${[['all',t('all'),'#0e8f6a'],...CATS.map(c=>[c.id,tr(c.name),c.c])].map(([id,n,col])=>`<button class="chip ${S.mapCat===id?'on':''}" data-act="mapcat" data-id="${id}">${id!=='all'?`<span class="dotc" style="background:${col}"></span>`:''}${n}</button>`).join('')}</div>
-    <div class="mapbox"><div id="map" data-list="${list.map(p=>p.id).join(',')}"></div><div class="maphint">${t('mapHint')}</div><div class="mapcard" id="mapcard" hidden></div></div>`;
+    <div class="mapbox"><div id="map" data-list="${list.map(p=>p.id).join(',')}"></div><div class="maphint">${t('mapHint')}</div><div class="mapcard" id="mapcard" hidden></div>${mapNotice()}</div>`;
   },
   prov({id}){
     const p = prov(id), c = cat(p.cat), fav = S.favs.includes(id);
@@ -785,7 +791,7 @@ const screens = {
       </div>
       <div class="lbl">${t('s_about')}</div>
       <div class="list">
-        <div class="setrow"><div class="txt"><b>${t('s_version')}</b><small>${t('s_demo')}</small></div><span class="price" style="font-size:14px">1.1.0</span></div>
+        <div class="setrow"><div class="txt"><b>${t('s_version')}</b><small>${t('s_demo')}</small></div><span class="price" style="font-size:14px">1.1.1</span></div>
       </div>
       <button class="btn danger block" data-act="reset" style="margin-top:16px">${t('s_reset')}</button>
       <div style="height:12px"></div>
@@ -839,7 +845,19 @@ function mountMap(){
   if (typeof L === 'undefined'){ el.innerHTML = `<p class="empty">${t('mapOff')}</p>`; return; }
   const c = city();
   MAP = L.map(el, {zoomControl:true, attributionControl:true, tap:true}).setView([c.lat, c.lng], 12);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {subdomains:'abcd', maxZoom:19, attribution:'© OpenStreetMap © CARTO'}).addTo(MAP);
+  const layers = [
+    ['https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {subdomains:'abcd', maxZoom:19, attribution:'© OpenStreetMap © CARTO'}],
+    ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}],
+  ];
+  const useLayer = i => {
+    const lyr = L.tileLayer(layers[i][0], layers[i][1]); let ok = 0, bad = 0;
+    lyr.on('tileload', () => { ok++; if (S.mapErr){ S.mapErr = false; paintNotice(); } });
+    lyr.on('tileerror', () => { bad++; if (ok === 0 && bad === 4){
+      if (i + 1 < layers.length){ if (MAP){ MAP.removeLayer(lyr); useLayer(i + 1); } }
+      else { S.mapErr = true; paintNotice(); } } });
+    lyr.addTo(MAP);
+  };
+  useLayer(0);
   L.marker([c.lat, c.lng], {icon:L.divIcon({className:'', html:'<span class="me-dot"></span>', iconSize:[18,18], iconAnchor:[9,9]}), title:t('youAreHere'), keyboard:false}).addTo(MAP);
   list.forEach(p => {
     const ca = cat(p.cat);
@@ -853,6 +871,12 @@ function mountMap(){
   else if (list.length){ const b = L.latLngBounds(list.map(p=>[p.lat,p.lng])); b.extend([c.lat,c.lng]); MAP.fitBounds(b, {padding:[36,36], maxZoom:14, animate:false}); }
   const mine = MAP; setTimeout(() => { if (MAP === mine && mine) mine.invalidateSize({animate:false}); }, 80);
 }
+function mapNotice(){
+  if (S.mapInfo) return `<div class="mapnote" id="mapnote" role="dialog" aria-label="${t('mapInfoT')}"><b>${ic('info')}${t('mapInfoT')}</b><p>${t('mapInfo1')}</p><p>${t('mapInfo2')}</p><p>${t('mapInfo3')}</p><button class="btn block" data-act="mapinfook">${t('mapInfoOk')}</button></div>`;
+  if (S.mapErr) return `<div class="mapnote" id="mapnote" role="alert"><b>${ic('info')}${t('mapErrT')}</b><p>${t('mapErr')}</p><button class="btn" data-act="mapretry">${t('retry')}</button></div>`;
+  return '<div id="mapnote" hidden></div>';
+}
+function paintNotice(){ const n = document.getElementById('mapnote'); if (n) n.outerHTML = mapNotice(); }
 function selectOnMap(id){
   const card = document.getElementById('mapcard'); if (!card) return;
   document.querySelectorAll('.mk.sel').forEach(x=>x.classList.remove('sel'));
@@ -923,6 +947,9 @@ document.addEventListener('click', e => {
     case 'mode': cur.mode = cur.mode === 'map' ? 'list' : 'map'; render(true); break;
     case 'mapcat': S.mapCat = id; render(); break;
     case 'mapclose': selectOnMap(null); break;
+    case 'mapinfo': S.mapInfo = true; paintNotice(); break;
+    case 'mapinfook': S.mapInfo = false; store.set('mapInfoSeen', true); paintNotice(); break;
+    case 'mapretry': S.mapErr = false; render(); break;
     case 'mapfocus': go('map', {focus:id}); break;
     case 'prov': e.stopPropagation(); go('prov', {id}); break;
     case 'fav': { const i = S.favs.indexOf(id); i<0 ? S.favs.push(id) : S.favs.splice(i,1); save(); render(); toast(i<0 ? t('favAdded') : t('favRemoved')); break; }
@@ -967,7 +994,7 @@ document.addEventListener('click', e => {
     case 'reset': {
       if (el.dataset.confirm !== 'y'){ el.dataset.confirm = 'y'; el.textContent = t('s_resetConfirm'); return; }
       store.clear(); store.set('lang', lang);
-      S.bookings = seedBookings(); S.favs = ['p3']; S.cards = [{last4:'1234', exp:'08/28'}]; S.set = Object.assign({}, DEFAULT_SET); S.chats = {};
+      S.bookings = seedBookings(); S.favs = ['p3']; S.cards = [{last4:'1234', exp:'08/28'}]; S.set = Object.assign({}, DEFAULT_SET); S.chats = {}; S.mapInfo = true;
       save(); render(); toast(t('s_resetDone')); break;
     }
   }

@@ -43,4 +43,11 @@ Bygget finns också under https://expo.dev → ditt projekt → Builds.
 ## Redigera appen
 Hela gränssnittet finns i `web/alltfix.html` (svenska och engelska, karta, bokning, inställningar).
 Efter ändringar: kör `npm run build:web` så skapas `appHtml.js`. GitHub gör det också automatiskt vid varje bygge.
-Kartan använder OpenStreetMap-kartor via Leaflet. Varje utförare har en knapp som öppnar platsen i Google Maps.
+
+## Kartan – ingen installation behövs
+Kartan i appen visar **OpenStreetMap**. OpenStreetMap är ingen app och behöver **inte installeras**: kartbilderna hämtas direkt från internet när kartan öppnas.
+
+- Mobilen måste ha internet (wifi eller mobildata), annars visas en ruta om att kartbilderna inte laddas.
+- Första gången man öppnar kartan visas en informationsruta om detta. Den kan visas igen med i-knappen uppe till höger på kartan.
+- Trycker man på en nål och väljer **Google Maps** öppnas platsen i Google Maps-appen om den finns, annars i webbläsaren. Google Maps behöver alltså inte heller installeras.
+- Tekniskt: kartan ritas med Leaflet (ingår i appen) och kartbilder från CARTO/OpenStreetMap. Laddas de inte provar appen automatiskt OpenStreetMaps egna kartserver.
