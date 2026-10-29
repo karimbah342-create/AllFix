@@ -4,7 +4,8 @@ Klickbar demo av AlltFix. Alla utförare, priser och bokningar är exempeldata.
 
 ## Ladda ner färdig APK
 Varje push till `main` bygger en ny `allfix.apk` automatiskt (GitHub Actions, se `.github/workflows/android-apk.yml`).
-Senaste versionen: https://github.com/menola8803/allfix/releases/latest
+Direktlänk (öppna på Android-mobilen): https://github.com/menola8803/AllFix/releases/latest/download/allfix.apk
+Alla versioner: https://github.com/menola8803/AllFix/releases
 Öppna länken på Android-mobilen, tryck på **allfix.apk** och installera.
 Bygget kan också startas manuellt: fliken **Actions → Bygg Android APK → Run workflow**.
 
